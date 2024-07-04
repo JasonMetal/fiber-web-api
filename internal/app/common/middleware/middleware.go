@@ -6,8 +6,15 @@ import (
 	"time"
 )
 
-// 统一的日志格式化输出中间件
+func CheckToken(c *fiber.Ctx) error {
+	return c.Next()
+}
 
+func SysLogInit(c *fiber.Ctx) error {
+	return c.Next()
+}
+
+// 统一的日志格式化输出中间件
 func LoggerPrint() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		start := time.Now()

@@ -2,15 +2,32 @@ package router
 
 import (
 	"fiber-web-api/internal/app/common/config"
+	"fiber-web-api/internal/app/common/middleware"
 	api "fiber-web-api/internal/app/controller/sys"
+	"fmt"
 	"github.com/gofiber/fiber/v2"
+	 log2  "log"
+)
+func init(){
+	log2.Default()
 )
 
+}
 func InitRouter() *fiber.App {
 	// 配置路由
 	app := fiber.New()
 	// init yaml conf
-	config.InitConfig()
+	vp, err := config.InitConfig()
+	log2.Println("vp",vp)
+	if err != nil {
+		panic(fmt.Errorf("init config error: %v", err))
+	}
+
+	// 中间件
+	app.Use(middleware.LoggerPrint())
+	app.Use(middleware.CheckToken)
+	app.Use(middleware.SysLogInit)
+	// 注册路由
 	apis := InitApi()
 	for _, api := range apis {
 		if api.Method == "POST" {
