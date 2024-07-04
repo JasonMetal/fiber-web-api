@@ -1,0 +1,68 @@
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:72
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:72
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:71
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:73
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:73
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:73
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:73
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/common/config/config.go:76
+[error] failed to initialize database, got error time: invalid duration "%!s(<nil>)"
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_safe.go:25 Error 1146 (42S02): Table 'gorm_db.sys_safe' doesn't exist
+[12.247ms] [rows:0] SELECT * FROM `sys_safe` ORDER BY `sys_safe`.`id` LIMIT 1
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_user.go:108 Error 1146 (42S02): Table 'gorm_db.sys_user' doesn't exist
+[7.537ms] [rows:0] 
+		SELECT a.*,b.name dept_name,role_key,role_name
+		FROM sys_user a
+		LEFT JOIN sys_dept b on FIND_IN_SET(b.id,a.dept_id)
+		LEFT JOIN sys_role c on a.role_id=c.id
+	WHERE user_name = 'admin'
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_log.go:56 Error 1146 (42S02): Table 'gorm_db.sys_log' doesn't exist
+[1.827ms] [rows:0] INSERT INTO `sys_log` (`id`,`creator_id`,`create_time`,`update_id`,`update_time`,`ip`,`title`,`type`,`method`,`url`,`info`,`state`) VALUES ('a50624841dfb4de5a5e361bc497b91ca','admin','2024-07-03 17:08:32.214',NULL,NULL,'127.0.0.1','用户登录','登录','login','/sys/login','用户名或密码错误，总登录次数3次，剩余次数: 2','登录失败')
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_safe.go:25
+[10.283ms] [rows:1] SELECT * FROM `sys_safe` ORDER BY `sys_safe`.`id` LIMIT 1
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_user.go:108
+[11.605ms] [rows:1] 
+		SELECT a.*,b.name dept_name,role_key,role_name
+		FROM sys_user a
+		LEFT JOIN sys_dept b on FIND_IN_SET(b.id,a.dept_id)
+		LEFT JOIN sys_role c on a.role_id=c.id
+	WHERE user_name = 'admin'
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_dept.go:39
+[3.001ms] [rows:1] 
+		WITH RECURSIVE temp_dept AS (
+            SELECT id,name,parent_id FROM sys_dept WHERE id = '4'
+            UNION ALL
+            SELECT d.id,d.name,d.parent_id FROM sys_dept d
+            JOIN temp_dept sd ON sd.id = d.parent_id
+        )
+        SELECT * FROM temp_dept
+	
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_dept.go:78
+[0.000ms] [rows:2] 
+		WITH RECURSIVE temp_dept(id,name,parent_id,level) AS (
+			SELECT id,name,parent_id,level
+			FROM sys_dept
+			WHERE id = '4'
+			UNION ALL
+			SELECT d.id,d.name,d.parent_id,d.level
+			FROM sys_dept d
+			JOIN temp_dept c ON d.id = c.parent_id
+		)
+		SELECT id,name,parent_id,level
+		FROM temp_dept
+		WHERE id != '4'
+		ORDER BY level,parent_id
+	
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_log.go:56
+[38.251ms] [rows:1] INSERT INTO `sys_log` (`id`,`creator_id`,`create_time`,`update_id`,`update_time`,`ip`,`title`,`type`,`method`,`url`,`info`,`state`) VALUES ('f63f386b3c714744bbc6ea3e70e4b206','admin','2024-07-03 17:10:07.991',NULL,NULL,'127.0.0.1','用户登录','登录','login','/sys/login','admin登录成功','登录成功')
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_log.go:47
+[0.127ms] [rows:10] SELECT * FROM `sys_log` ORDER BY create_time desc LIMIT 10
+D:/projects/Go/fiber-web-api/internal/app/model/sys/sys_log.go:48
+[3.557ms] [rows:1] SELECT count(*) FROM `sys_log`
